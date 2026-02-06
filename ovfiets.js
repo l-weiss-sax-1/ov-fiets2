@@ -1,6 +1,6 @@
 // ovfiets.js
 
-const API_KEY = "964c8281c5ce4e82b00eaaa8c751a002"; // <-- put your key here
+const tja = "964c8281c5ce4e82b00eaaa8c751a002";
 const STATIONS_URL = "https://gateway.apiportal.ns.nl/nsapp-stations/v3";
 const OVFIETS_URL = "https://gateway.apiportal.ns.nl/places-api/v2/ovfiets";
 
@@ -46,7 +46,7 @@ async function searchStations(query) {
     const response = await fetch(url, {
       method: "GET",
       headers: {
-        "Ocp-Apim-Subscription-Key": API_KEY,
+        "Ocp-Apim-Subscription-Key": tja,
         "Accept": "application/json"
       }
     });
@@ -106,7 +106,7 @@ async function getOVFietsDataForStation(stationCode) {
     const response = await fetch(url, {
       method: "GET",
       headers: {
-        "Ocp-Apim-Subscription-Key": API_KEY,
+        "Ocp-Apim-Subscription-Key": tja,
         "Accept": "application/json"
       }
     });
