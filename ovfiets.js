@@ -138,14 +138,14 @@ function displayStationList(stations) {
     const stationType = station?.stationType?.replace(/_/g, ' ') ?? "";
     const bikeLocations = station.bikeLocations;
 
-    // Calculate total bikes and check if any location is staffed (bemenst)
-    let totalBikes = 0;
+    // Get individual bike counts and check if any location is staffed (bemenst)
+    let bikeCounts = [];
     let hasStaffed = false;
 
     bikeLocations.forEach(loc => {
       const bikes = loc?.extra?.rentalBikes;
       if (bikes !== "Unknown" && !isNaN(bikes)) {
-        totalBikes += parseInt(bikes);
+        bikeCounts.push(bikes);
       }
       const serviceType = loc?.extra?.serviceType ?? "";
       if (serviceType.toLowerCase().includes("bemenst")) {
@@ -153,14 +153,18 @@ function displayStationList(stations) {
       }
     });
 
+    // Create display string (e.g., "58 + 62" or "120")
+    const bikeCountDisplay = bikeCounts.length > 0 ? bikeCounts.join(' + ') : '0';
+    const totalBikes = bikeCounts.reduce((sum, count) => sum + parseInt(count), 0);
+
     const stationCard = document.createElement('div');
     stationCard.className = 'station-card';
     stationCard.onclick = () => displayBikeDetails(bikeLocations, stationName, stationCode);
     
     stationCard.innerHTML = `
       <div class="station-header">
-        <div class="station-name">${stationName} ${hasStaffed ? '🪙' : ''}</div>
-        <div class="bike-count">${totalBikes} ${totalBikes === 1 ? 'bike' : 'bikes'}</div>
+        <div class="station-name">${stationName} ${hasStaffed ? '🧑‍🔧' : '🤖'}</div>
+        <div class="bike-count">${bikeCountDisplay} ${totalBikes === 1 ? 'bike' : 'bikes'}</div>
       </div>
       <div class="station-info">
         <span class="station-code">${stationCode}</span>
@@ -193,7 +197,7 @@ function displayBikeDetails(locations, stationName, stationCode) {
     locationCard.className = 'location-card';
     
     locationCard.innerHTML = `
-      <h3>Location ${index + 1} ${isBemenst ? '🪙' : ''}</h3>
+      <h3>Location ${index + 1} ${isBemenst ? '🧑‍🔧' : ''}</h3>
       <div class="info-row">
         <span class="info-label">Service Type:</span>
         <span>${serviceType}</span>
