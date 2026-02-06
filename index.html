@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OV-fiets Availability Checker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>OV-fiets Availability</h1>
+    <p class="subtitle">Check available rental bikes at NS stations</p>
+    
+    <div class="search-box">
+      <input 
+        type="text" 
+        id="stationInput" 
+        placeholder="Enter station code (e.g., UT, ASD, RTD)"
+        autocomplete="off"
+      >
+      <button id="searchBtn">Check Availability</button>
+    </div>
+
+    <div id="results" class="results"></div>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script src="ovfiets.js"></script>
+</body>
+</html>
